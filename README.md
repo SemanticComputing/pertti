@@ -1,12 +1,22 @@
 # keras-bert-ner
 
-Named entity recognition built on top of BERT and keras-bert. 
+Named entity recognition built on top of BERT and keras-bert. This guide is updated version from the original one: https://github.com/jouniluoma/keras-bert-ner
+
+The service is a compilation from [J. Luoma's](https://github.com/jouniluoma/keras-bert-ner) and [S. Pyysalo's](https://github.com/spyysalo/tagdemo) original demos.
 
 ## Dependencies:
 
-bert (added as submodule to this project. FullTokenizer is used instead of keras-bert tokenizer)
+Notice that this project uses tensorflow 1.11, make sure to downgrade tensorflow to use this project or use it in it's own sandbox. Some of the dependencies are added as a part of the installation.
 
-keras-bert (https://pypi.org/project/keras-bert/)
+Install the following dependencies preferably in the given order:
+
+* python 3 or higher
+
+* flask
+
+* bert (added as submodule to this project. FullTokenizer is used instead of keras-bert tokenizer)
+
+* keras-bert (https://pypi.org/project/keras-bert/)
 
 Pretrained BERT model, e.g. from:
 - https://github.com/TurkuNLP/FinBERT
@@ -39,16 +49,11 @@ Run an experiment on FiNER news data
 
 ```
 ./scripts/run-finer-news.sh
-./scripts/predict-finer-news.sh
-python compare.py data/finer-news/test.tsv finer-news-predictions.tsv 
 ```
 
-If in a Slurm environment, edit `scripts/slurm-run.sh` to match your setup and run
-
+Start the pertti-service (notice that the --ner\_model\_dir parameter can be changed)
 ```
-sbatch scripts/slurm-run.sh scripts/run-finer-news.sh
-sbatch scripts/slurm-run.sh scripts/predict-finer-news.sh
-python compare.py data/finer-news/test.tsv finer-news-predictions.tsv
+python serve.py --ner_model_dir finer-news-model/
 ```
 
 (the first job must finish before running the second.)
