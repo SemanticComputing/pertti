@@ -1,4 +1,4 @@
-# keras-bert-ner
+# pertti
 
 Named entity recognition built on top of BERT and keras-bert. This guide is updated version from the original one: https://github.com/jouniluoma/keras-bert-ner
 
@@ -55,5 +55,12 @@ Start the pertti-service (notice that the --ner\_model\_dir parameter can be cha
 ```
 python serve.py --ner_model_dir finer-news-model/
 ```
+
+All options to run the service are:
+* -h (help)
+* batch\_size (Batch size for training)
+* output\_file (File to write predicted outputs to)
+* ner\_model\_dir (Trained NER model directory)
+
 
 (the first job must finish before running the second.)
