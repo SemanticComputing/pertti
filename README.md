@@ -74,9 +74,10 @@ In order to do Named Entity Recognition with the service, use the following para
 
 ### Example requests and their outputs
 
-#### Example request where output is given in raw format
 
-Request
+#### Request where output is given in raw format
+
+Request:
 ```
  http://127.0.0.1:8080?text=Presidentti Tarja Halosen elämän ääniraitaan mahtuu muistoja työskentelystä Englannissa, Tapio Rautavaaran Halosen äidille kohdistamista kosiskeluyrityksistä, sekä omista häistään.
 ```
@@ -107,16 +108,16 @@ häistään	O
 ```
 
 
-#### Example request where output is given in JSON format
+#### Request where output is given in JSON format
 
 In this output format the JSON returns in addition to the named entities and their types, also their locations in the given text.
 
-Request
+Request:
 ```
  http://127.0.0.1:8080?text=Presidentti Tarja Halosen elämän ääniraitaan mahtuu muistoja työskentelystä Englannissa, Tapio Rautavaaran Halosen äidille kohdistamista kosiskeluyrityksistä, sekä omista häistään.&format=json
 ```
 
-Output
+Output:
 
 ```
 [
