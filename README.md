@@ -57,10 +57,10 @@ python serve.py --ner_model_dir finer-news-model/
 ```
 
 All options to run the service are:
-* -h (help)
-* batch\_size (Batch size for training)
-* output\_file (File to write predicted outputs to)
-* ner\_model\_dir (Trained NER model directory)
+* -h, --help (help)
+* --batch\_size (Batch size for training)
+* --output\_file (File to write predicted outputs to)
+* --ner\_model\_dir (Trained NER model directory)
 
 
 (the first job must finish before running the second.)
