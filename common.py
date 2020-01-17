@@ -306,7 +306,7 @@ def read_conll(input_file, mode='train'):
     curr_words, curr_labels = [], []
     with open(input_file) as f:
         for line in f:
-            line = line.strip()
+            line = line.decode('utf-8').strip()
             if line:
                 fields = line.split('\t')
                 if len(fields) > 1:
