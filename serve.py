@@ -2,7 +2,7 @@ import os
 import sys
 import unicodedata
 
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 import numpy as np
 import tensorflow as tf
@@ -11,14 +11,24 @@ from common import process_sentences, load_ner_model
 from common import encode, write_result
 from common import argument_parser
 
+from so2html import conll_to_standoff, standoff_to_html, generate_legend
+from so2html import sort_types
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def tag():
+    format_ = str(request.values.get('format', 'html'))
     text = request.values['text']
-    return app.tagger.tag(text)
+    annotated = app.tagger.tag(text)
+    annotations = conll_to_standoff(text, annotated)
+    print("Format", format_)
+    if format_ == 'json':
+        anns = [a.to_dict(text) for a in annotations]
+        return jsonify(anns)
+    else:
+        return annotated
 
 
 class Tagger(object):
@@ -83,6 +93,7 @@ def tokenize(text):
 
 
 def main(argv):
+    print("Load tagger")
     argparser = argument_parser('serve')
     args = argparser.parse_args(argv[1:])
     app.tagger = Tagger.load(args.ner_model_dir)
@@ -91,4 +102,5 @@ def main(argv):
 
 
 if __name__ == '__main__':
+    print("TESTING")
     sys.exit(main(sys.argv))
