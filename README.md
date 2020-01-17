@@ -6,7 +6,7 @@ The service is a compilation from [J. Luoma's](https://github.com/jouniluoma/ker
 
 ## Dependencies:
 
-Notice that this project uses tensorflow 1.11, make sure to downgrade tensorflow to use this project or use it in it's own sandbox. Some of the dependencies are added as a part of the installation.
+Notice that this project uses tensorflow 1.11 (also install tensorflow-gpu: pip install tensorflow-gpu==1.14), make sure to downgrade tensorflow to use this project or use it in it's own sandbox. Some of the dependencies are added as a part of the installation.
 
 Install the following dependencies preferably in the given order:
 
