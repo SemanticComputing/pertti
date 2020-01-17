@@ -62,5 +62,88 @@ All options to run the service are:
 * --output\_file (File to write predicted outputs to)
 * --ner\_model\_dir (Trained NER model directory)
 
-
 (the first job must finish before running the second.)
+
+## Usage
+
+The service will by default use the url: http://127.0.0.1:8080 and accepts currently only get requests.
+
+In order to do Named Entity Recognition with the service, use the following parameters with the request:
+* text (required): the text to be annotated with named entities
+* format (optional): the format in which the results are returned. The service currently supports only json and raw output formats. To get output in JSON format the user must give this parameter value 'json'. By default without giving this option, the results are returned in raw format. 
+
+### Example requests and their outputs
+
+#### Example request where output is given in raw format
+
+Request
+```
+ http://127.0.0.1:8080?text=Presidentti Tarja Halosen elämän ääniraitaan mahtuu muistoja työskentelystä Englannissa, Tapio Rautavaaran Halosen äidille kohdistamista kosiskeluyrityksistä, sekä omista häistään.
+```
+
+Output:
+```
+Presidentti	O
+Tarja	B-PER
+Halosen	I-PER
+elämän	O
+ääniraitaan	O
+mahtuu	O
+muistoja	O
+työskentelystä	O
+Englannissa	B-LOC
+,	O
+Tapio	B-PER
+Rautavaaran	I-PER
+Halosen	B-PER
+äidille	O
+kohdistamista	O
+kosiskeluyrityksistä	O
+,	O
+sekä	O
+omista	O
+häistään	O
+.	O
+```
+
+
+#### Example request where output is given in JSON format
+
+In this output format the JSON returns in addition to the named entities and their types, also their locations in the given text.
+
+Request
+```
+ http://127.0.0.1:8080?text=Presidentti Tarja Halosen elämän ääniraitaan mahtuu muistoja työskentelystä Englannissa, Tapio Rautavaaran Halosen äidille kohdistamista kosiskeluyrityksistä, sekä omista häistään.&format=json
+```
+
+Output
+
+```
+[
+    {
+        "end": 25,
+        "start": 12,
+        "text": "Tarja Halosen",
+        "type": "PER"
+    },
+    {
+        "end": 87,
+        "start": 76,
+        "text": "Englannissa",
+        "type": "LOC"
+    },
+    {
+        "end": 106,
+        "start": 89,
+        "text": "Tapio Rautavaaran",
+        "type": "PER"
+    },
+    {
+        "end": 114,
+        "start": 107,
+        "text": "Halosen",
+        "type": "PER"
+    }
+]
+```
+
