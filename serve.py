@@ -93,12 +93,15 @@ translation_table = str.maketrans({ c: ' '+c+' ' for c in punct_chars })
 def tokenize(text):
     return text.translate(translation_table).split()
 
+def setup(ner_model_dir):
+    app.tagger = Tagger.load(ner_model_dir)
+    return app
 
 def main(argv):
     print("Load tagger")
     argparser = argument_parser('serve')
     args = argparser.parse_args(argv[1:])
-    app.tagger = Tagger.load(args.ner_model_dir)
+    setup(args.ner_model_dir)
     app.run(port=8080)
     return 0
 
