@@ -25,9 +25,9 @@ Pretrained BERT model, e.g. from:
 input data e.g. from:
 - https://github.com/mpsilfve/finer-data
 
-Input data is expected to be in CONLL:ish format where Token and Tag are tab separated. 
+Input data is expected to be in CONLL:ish format where Token and Tag are tab separated.
 First string on the line corresponds to Token and second string to Tag
-  
+
 ## Quickstart
 
 Get submodules
@@ -70,7 +70,7 @@ The service will by default use the url: http://127.0.0.1:8080 and accepts curre
 
 In order to do Named Entity Recognition with the service, use the following parameters with the request:
 * text (required): the text to be annotated with named entities
-* format (optional): the format in which the results are returned. The service currently supports only json and raw output formats. To get output in JSON format the user must give this parameter value 'json'. By default without giving this option, the results are returned in raw format. 
+* format (optional): the format in which the results are returned. The service currently supports only json and raw output formats. To get output in JSON format the user must give this parameter value 'json'. By default without giving this option, the results are returned in raw format.
 
 ### Example requests and their outputs
 
@@ -148,3 +148,17 @@ Output:
 ]
 ```
 
+## Docker
+
+Build:
+`./docker-build.sh`
+
+For running the container, a NER model needs to be available on the host machine in the dir `ner-model`.
+
+E.g. build a NER model based on FiNER news data (using max 4 cpu cores):
+`docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/ner-model,target=/app/finer-news-model --name pertti-create-model --entrypoint ./scripts/run-finer-news.sh pertti`
+
+Run:
+`./docker-run.sh`
+
+The service listens on http://localhost:5000
