@@ -1,0 +1,4 @@
+numpy
+tensorflow==1.14
+keras-bert
+flask
