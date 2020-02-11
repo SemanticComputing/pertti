@@ -19,7 +19,7 @@ from so2html import sort_types
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST", "OPTIONS"])
 def tag():
     format_ = str(request.values.get('format', 'html'))
     text = request.values['text']
