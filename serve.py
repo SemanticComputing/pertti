@@ -3,6 +3,7 @@
 import os
 import sys
 import unicodedata
+import urllib
 
 from flask import Flask, request, jsonify
 
@@ -22,7 +23,12 @@ app = Flask(__name__)
 @app.route('/', methods=["GET", "POST", "OPTIONS"])
 def tag():
     format_ = str(request.values.get('format', 'html'))
-    text = request.values['text']
+    text = ""
+    if len(request.data)>0:
+        text = urllib.parse.unquote(str(request.data,'utf-8'))
+    else:
+        text = request.values['text']
+
     annotated = app.tagger.tag(text)
     annotations = conll_to_standoff(text, annotated)
     print("Format", format_)
