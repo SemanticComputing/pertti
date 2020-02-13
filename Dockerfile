@@ -20,9 +20,11 @@ COPY scripts ./scripts
 
 RUN ./scripts/get-models.sh
 
-RUN ./scripts/get-finer.sh
+RUN git clone https://version.aalto.fi/gitlab/seco/finbert-ner-models.git
 
-RUN ./scripts/get-turku-ner.sh
+RUN wget http://dl.turkunlp.org/turku-ner-models/combined-ext-model-130220.tar.gz \
+ && tar xzvf combined-ext-model-130220.tar.gz \
+ && rm combined-ext-model-130220.tar.gz
 
 COPY common.py ./
 COPY config.py ./

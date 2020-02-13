@@ -153,12 +153,9 @@ Output:
 Build:
 `./docker-build.sh`
 
-For running the container, a NER model needs to be available on the host machine in the dir `ner-model`.
-
-E.g. build a NER model based on FiNER news data (using max 4 cpu cores):
-`docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/ner-model,target=/app/finer-news-model --name pertti-create-model --entrypoint ./scripts/run-finer-news.sh pertti`
-
 Run:
-`./docker-run.sh`
+`./docker-run.sh [NER_MODEL]`
+
+where NER_MODEL = `combined` (default), `finer-news`, or `turku-ner`
 
 The service listens on http://localhost:5000
