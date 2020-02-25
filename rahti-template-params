@@ -5,5 +5,4 @@ GIT_URL=git@version.aalto.fi:seco/pertti.git
 IP=172.30.10.96
 CONTAINER_PORT=5000
 TARGET_PORT=5000
-PVC_NAME=finbert-ner-model
-PVC_TARGET=/app/ner-model
+MEM_MAX=8Gi

@@ -2,5 +2,5 @@
 
 SERVER="https://rahti.csc.fi:8443"
 PROJECT_NAME="seco"
-TEMPLATE_NAME="seco-generic-with-volume"
+TEMPLATE_NAME="seco-generic"
 TEMPLATE_PARAM_FILE="rahti-template-params"
