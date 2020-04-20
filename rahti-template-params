@@ -1,8 +1,0 @@
-APP_NAME=finbert-ner
-ENVIRONMENT=production
-FROM=ubuntu:18.04
-GIT_URL=git@version.aalto.fi:seco/pertti.git
-IP=172.30.10.96
-CONTAINER_PORT=5000
-TARGET_PORT=5000
-MEM_MAX=8Gi
