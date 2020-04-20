@@ -150,12 +150,39 @@ Output:
 
 ## Docker
 
+For building the Docker container image, be sure to have the submodule `bert` fetched:
+
+```
+git submodule init
+git submodule update
+```
+
+### Option 1: self-contained Docker image including language models and NER models trained on `finer-news`, `turku-ner`, and `combined`
+
 Build:
-`./docker-build.sh`
+`docker build -f Dockerfile.self-contained -t pertti-self-contained .`
 
 Run:
-`./docker-run.sh [NER_MODEL]`
+`docker run -it --rm -p 5000:5000 --name pertti pertti-self-contained [NER_MODEL]`
 
 where NER_MODEL = `combined` (default), `finer-news`, or `turku-ner`
+
+### Option 2: smaller Docker image without pretrained language and NER models
+
+For running the container, you need to have the existing language models and a NER model on the host machine, and pass them to container as a bind mount or in a volume.
+
+E.g. create the following directory structure on mount/volume, with the model distribution files unpacked:
+
+* models/multi_cased_L-12_H-768_A-12: https://storage.googleapis.com/bert_models/2018_11_23/multi_cased_L-12_H-768_A-12.zip
+* models/multilingual_L-12_H-768_A-12: https://storage.googleapis.com/bert_models/2018_11_03/multilingual_L-12_H-768_A-12.zip
+* models/bert-base-finnish-cased-v1: http://dl.turkunlp.org/finbert/bert-base-finnish-cased-v1.zip
+* models/bert-base-finnish-uncased-v1: http://dl.turkunlp.org/finbert/bert-base-finnish-uncased-v1.zip
+* models/combined-ext-model: http://dl.turkunlp.org/turku-ner-models/combined-ext-model-130220.tar.gz (or one of the models at https://version.aalto.fi/gitlab/seco/finbert-ner-models.git)
+
+Build:
+`docker build -t pertti .`
+
+Run:
+`docker run -it --rm -p 5000:5000 --mount type=bind,source="$(pwd)"/models,target=/app/models -e NER_MODEL_DIR=/app/models/combined-ext-model --name pertti pertti`
 
 The service listens on http://localhost:5000

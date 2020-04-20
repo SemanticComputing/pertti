@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 RUN apt-get -qq update \
- && apt-get -qq install locales python3-pip gunicorn3 \
+ && apt-get -qq install locales wget unzip git python3-pip gunicorn3 \
  && rm -rf /var/lib/apt/lists/* \
  && ln -s /usr/bin/python3 /usr/bin/python \
  && ln -s /usr/bin/gunicorn3 /usr/bin/gunicorn \
@@ -15,6 +15,16 @@ RUN pip3 install -r requirements.txt
 WORKDIR app
 
 COPY bert ./bert
+
+COPY scripts ./scripts
+
+RUN ./scripts/get-models.sh
+
+RUN git clone https://version.aalto.fi/gitlab/seco/finbert-ner-models.git
+
+RUN wget http://dl.turkunlp.org/turku-ner-models/combined-ext-model-130220.tar.gz \
+ && tar xzvf combined-ext-model-130220.tar.gz \
+ && rm combined-ext-model-130220.tar.gz
 
 COPY common.py ./
 COPY config.py ./
@@ -36,6 +46,6 @@ ENV GUNICORN_WORKER_AMOUNT 1
 ENV GUNICORN_TIMEOUT 300
 ENV GUNICORN_RELOAD ""
 
-ENV NER_MODEL_DIR /app/models/ner
+ENV NER_MODEL_DIR combined-ext-model
 
 ENTRYPOINT [ "/run.sh" ]
