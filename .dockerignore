@@ -1,2 +1,4 @@
-ner-model
 models
+finer-ner-model
+turku-ner-model
+combiner-ner-model

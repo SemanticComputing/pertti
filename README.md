@@ -169,15 +169,17 @@ where NER_MODEL = `combined` (default), `finer-news`, or `turku-ner`
 
 ### Option 2: smaller Docker image without pretrained language and NER models
 
-For running the container, you need to have the existing language models and a NER model on the host machine, and pass them to container as a bind mount or in a volume.
+For running the container, you need to have the existing language models and a NER model on the host machine, and pass them to container as a bind mount or on a volume.
 
-E.g. create the following directory structure on mount/volume, with the model distribution files unpacked:
+E.g. download and unpack the following model distributions and create the following directory structure for them on mount/volume:
 
 * models/multi_cased_L-12_H-768_A-12: https://storage.googleapis.com/bert_models/2018_11_23/multi_cased_L-12_H-768_A-12.zip
 * models/multilingual_L-12_H-768_A-12: https://storage.googleapis.com/bert_models/2018_11_03/multilingual_L-12_H-768_A-12.zip
 * models/bert-base-finnish-cased-v1: http://dl.turkunlp.org/finbert/bert-base-finnish-cased-v1.zip
 * models/bert-base-finnish-uncased-v1: http://dl.turkunlp.org/finbert/bert-base-finnish-uncased-v1.zip
-* models/combined-ext-model: http://dl.turkunlp.org/turku-ner-models/combined-ext-model-130220.tar.gz (or one of the models at https://version.aalto.fi/gitlab/seco/finbert-ner-models.git)
+* models/combined-ext-model: http://dl.turkunlp.org/turku-ner-models/combined-ext-model-130220.tar.gz (or one of the models at https://version.aalto.fi/gitlab/seco/finbert-ner-models.git; or use your own NER model trained with the instructions in section `Train NER model`)
+
+The language models (the first four models in the above list) can be downloaded by running `scrips/get-models.sh`.
 
 Build:
 `docker build -t pertti .`
@@ -186,3 +188,31 @@ Run:
 `docker run -it --rm -p 5000:5000 --mount type=bind,source="$(pwd)"/models,target=/app/models -e NER_MODEL_DIR=/app/models/combined-ext-model --name pertti pertti`
 
 The service listens on http://localhost:5000
+
+### Train NER model
+
+To train a NER model:
+
+Build:
+
+`docker build -f Dockerfile.train -t pertti-train .`
+
+Run:
+
+E.g. train a model using FiNER news corpus:
+
+`mkdir finer-ner-model`
+`docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/finer-ner-model,target=/app/finer-news-model --name pertti-train pertti-train /bin/bash -c "./scripts/get-models.sh && ./scripts/get-finer.sh && ./scripts/run-finer-news.sh"`
+
+E.g. train a model using Turku NER corpus:
+
+`mkdir ner-models`
+`docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/ner-models,target=/app/ner-models --name pertti-train pertti-train /bin/bash -c "./scripts/get-models.sh && ./scripts/get-turku-ner.sh && ./scripts/run-turku-ner.sh"`
+`mv ner-models/turku-ner-model .`
+
+E.g. train a model using combined FiNER news and Turku NER corpus:
+
+`mkdir combined-ner-model`
+`docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/combined-ner-model,target=/app/combined-model --name pertti-train pertti-train /bin/bash -c "./scripts/get-models.sh && ./scripts/get-combined.sh && ./scripts/run-combined.sh"`
+
+You can also download the language models and NER model training data on your host machine and pass them to container as a bind mount or on a volume. In such case, you only need to run in the container the last command of the above docker run examples, e.g., `./scripts/run-combined.sh`.
