@@ -1,5 +1,5 @@
-numpy
-tensorflow==1.14
+flask
 h5py<3.0.0
 keras-bert
-flask
+numpy
+tensorflow==1.14
