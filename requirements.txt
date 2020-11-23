@@ -1,4 +1,5 @@
 numpy
 tensorflow==1.14
+h5py<3.0.0
 keras-bert
 flask
