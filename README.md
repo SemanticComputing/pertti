@@ -187,7 +187,7 @@ E.g. download and unpack the following model distributions and create the follow
 * models/bert-base-finnish-uncased-v1: http://dl.turkunlp.org/finbert/bert-base-finnish-uncased-v1.zip
 * models/combined-ext-model: http://dl.turkunlp.org/turku-ner-models/combined-ext-model-130220.tar.gz (or one of the models at https://version.aalto.fi/gitlab/seco/finbert-ner-models.git; or use your own NER model trained with the instructions in section `Train NER model`)
 
-The language models (the first four models in the above list) can be downloaded by running `scrips/get-models.sh`.
+You can run the script `./get-models.sh` to download the models (language models and the combined NER model based on FiNER news and Turku NER corpus) into directory `models`.
 
 Build:
 `docker build -t pertti .`
