@@ -74,11 +74,13 @@ All options to run the service are:
 
 ## Usage
 
-The service will by default use the url: http://127.0.0.1:8080 and accepts currently only get requests.
+The service will by default use the url: http://127.0.0.1:8080.
 
 In order to do Named Entity Recognition with the service, use the following parameters with the request:
 * text (required): the text to be annotated with named entities
 * format (optional): the format in which the results are returned. The service currently supports only json and raw output formats. To get output in JSON format the user must give this parameter value 'json'. By default without giving this option, the results are returned in raw format.
+
+The service supports POST requests.
 
 ### Example requests and their outputs
 
@@ -88,6 +90,11 @@ In order to do Named Entity Recognition with the service, use the following para
 Request:
 ```
  http://127.0.0.1:8080?text=Presidentti Tarja Halosen elämän ääniraitaan mahtuu muistoja työskentelystä Englannissa, Tapio Rautavaaran Halosen äidille kohdistamista kosiskeluyrityksistä, sekä omista häistään.
+```
+
+Or as a POST request:
+```
+curl -H "Content-type: text/plain; charset=utf-8" -d "Presidentti Tarja Halosen elämän ääniraitaan mahtuu muistoja työskentelystä Englannissa, Tapio Rautavaaran Halosen äidille kohdistamista kosiskeluyrityksistä, sekä omista häistään." http://127.0.0.1:8080
 ```
 
 Output:
