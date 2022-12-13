@@ -1,8 +1,19 @@
 # pertti
 
+## About
+
 Named entity recognition built on top of BERT and keras-bert. This guide is updated version from the original one: https://github.com/jouniluoma/keras-bert-ner
 
 The service is a compilation from [J. Luoma's](https://github.com/jouniluoma/keras-bert-ner) and [S. Pyysalo's](https://github.com/spyysalo/tagdemo) original demos.
+
+### API
+
+The service has also a usable API for testing. The service API description can be found from [Swagger](https://app.swaggerhub.com/apis-docs/SeCo/nlp.ldf.fi/1.0.0#/finbert-ner/).
+
+### Publications
+
+* Minna Tamper, Arttu Oksanen, Jouni Tuominen, Aki Hietanen and Eero Hyvönen: Automatic Annotation Service APPI: Named Entity Linking in Legal Domain. The Semantic Web: ESWC 2020 Satellite Events (Harth, Andreas, Presutti, Valentina, Troncy, Raphaël, Acosta, Maribel, Polleres, Axel, Fernández, Javier D., Xavier Parreira, Josiane, Hartig, Olaf, Hose, Katja and Cochez, Michael (eds.)), Lecture Notes in Computer Science, vol. 12124, pp. 208-213, Springer-Verlag, 2020.
+
 
 ## Dependencies:
 
