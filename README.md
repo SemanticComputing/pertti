@@ -183,15 +183,13 @@ git submodule init
 git submodule update
 ```
 
-### Option 1: self-contained Docker image including language models and NER models trained on `finer-news`, `turku-ner`, and `combined`
+### Option 1: self-contained Docker image including language models and the NER model trained on the combined FiNER news and Turku NER corpus
 
 Build:
 `docker build -f Dockerfile.self-contained -t pertti-self-contained .`
 
 Run:
-`docker run -it --rm -p 5000:5000 --name pertti pertti-self-contained [NER_MODEL]`
-
-where NER_MODEL = `combined` (default), `finer-news`, or `turku-ner`
+`docker run -it --rm -p 5000:5000 --name pertti pertti-self-contained`
 
 ### Option 2: smaller Docker image without pretrained language and NER models
 

@@ -1,17 +1,5 @@
 #!/bin/sh
 
-if [ $@ ];
-then
-  case $@ in
-    finer-news)
-      NER_MODEL_DIR="finbert-ner-models/finer-news"
-      ;;
-    turku-ner)
-      NER_MODEL_DIR="finbert-ner-models/turku-ner"
-      ;;
-  esac
-fi
-
 echo "Using model: "$NER_MODEL_DIR
 
 /usr/bin/gunicorn $GUNICORN_RELOAD -w $GUNICORN_WORKER_AMOUNT -t $GUNICORN_TIMEOUT --limit-request-line 0 -b 0.0.0.0:5000 "serve:setup('$NER_MODEL_DIR')"
