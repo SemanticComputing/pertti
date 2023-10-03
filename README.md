@@ -225,18 +225,24 @@ Run:
 
 E.g. train a model using FiNER news corpus:
 
-`mkdir finer-ner-model`
-`docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/finer-ner-model,target=/app/finer-news-model --name pertti-train pertti-train /bin/bash -c "./scripts/get-models.sh && ./scripts/get-finer.sh && ./scripts/run-finer-news.sh"`
+```
+mkdir finer-ner-model
+docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/finer-ner-model,target=/app/finer-news-model --name pertti-train pertti-train /bin/bash -c "./scripts/get-models.sh && ./scripts/get-finer.sh && ./scripts/run-finer-news.sh"
+```
 
 E.g. train a model using Turku NER corpus:
 
-`mkdir ner-models`
-`docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/ner-models,target=/app/ner-models --name pertti-train pertti-train /bin/bash -c "./scripts/get-models.sh && ./scripts/get-turku-ner.sh && ./scripts/run-turku-ner.sh"`
-`mv ner-models/turku-ner-model .`
+```
+mkdir ner-models
+docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/ner-models,target=/app/ner-models --name pertti-train pertti-train /bin/bash -c "./scripts/get-models.sh && ./scripts/get-turku-ner.sh && ./scripts/run-turku-ner.sh"
+mv ner-models/turku-ner-model .
+```
 
 E.g. train a model using combined FiNER news and Turku NER corpus:
 
-`mkdir combined-ner-model`
-`docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/combined-ner-model,target=/app/combined-model --name pertti-train pertti-train /bin/bash -c "./scripts/get-models.sh && ./scripts/get-combined.sh && ./scripts/run-combined.sh"`
+```
+mkdir combined-ner-model
+docker run -it --rm --cpus=4 --mount type=bind,source="$(pwd)"/combined-ner-model,target=/app/combined-model --name pertti-train pertti-train /bin/bash -c "./scripts/get-models.sh && ./scripts/get-combined.sh && ./scripts/run-combined.sh"
+```
 
 You can also download the language models and NER model training data on your host machine and pass them to container as a bind mount or on a volume. In such case, you only need to run in the container the last command of the above docker run examples, e.g., `./scripts/run-combined.sh`.
