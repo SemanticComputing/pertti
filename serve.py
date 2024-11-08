@@ -38,6 +38,9 @@ def tag():
     else:
         return annotated
 
+@app.route('/health')
+def health_check():
+    return 'OK', 200
 
 class Tagger(object):
     def __init__(self, model, tokenizer, labels, config):
